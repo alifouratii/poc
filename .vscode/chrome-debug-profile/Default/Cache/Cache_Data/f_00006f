@@ -1,0 +1,201 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/DateCalendar.tsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=03123560"; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+var _s = $RefreshSig$();
+import __vite__cjsImport1_react from "/node_modules/.vite/deps/react.js?v=03123560"; const useEffect = __vite__cjsImport1_react["useEffect"]; const useMemo = __vite__cjsImport1_react["useMemo"]; const useState = __vite__cjsImport1_react["useState"];
+import { ChevronLeft, ChevronRight } from "/node_modules/.vite/deps/lucide-react.js?v=03123560";
+import { Button } from "/src/components/ui/button.tsx";
+const WEEK_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+function toDateKey(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+function parseDateKey(dateKey) {
+  const [year, month, day] = dateKey.split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+function formatMonthLabel(date) {
+  return new Intl.DateTimeFormat("en", {
+    month: "long",
+    year: "numeric"
+  }).format(date);
+}
+function getMonthGrid(activeMonth) {
+  const year = activeMonth.getFullYear();
+  const month = activeMonth.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const startOffset = (firstDay.getDay() + 6) % 7;
+  const gridStart = new Date(year, month, 1 - startOffset);
+  return Array.from({ length: 42 }, (_, index) => {
+    const date = new Date(gridStart);
+    date.setDate(gridStart.getDate() + index);
+    return date;
+  });
+}
+export function DateCalendar({
+  value,
+  availableDates,
+  onChange
+}) {
+  _s();
+  const [activeMonth, setActiveMonth] = useState(() => parseDateKey(value));
+  const availableDateSet = useMemo(
+    () => new Set(availableDates),
+    [availableDates]
+  );
+  const dates = useMemo(() => getMonthGrid(activeMonth), [activeMonth]);
+  useEffect(() => {
+    setActiveMonth(parseDateKey(value));
+  }, [value]);
+  function moveMonth(direction) {
+    setActiveMonth((previousMonth) => {
+      return new Date(
+        previousMonth.getFullYear(),
+        previousMonth.getMonth() + direction,
+        1
+      );
+    });
+  }
+  return /* @__PURE__ */ jsxDEV("div", { className: "rounded-2xl border bg-white p-3 shadow-sm", children: [
+    /* @__PURE__ */ jsxDEV("div", { className: "mb-3 flex items-center justify-between gap-2", children: [
+      /* @__PURE__ */ jsxDEV(
+        Button,
+        {
+          type: "button",
+          variant: "outline",
+          size: "icon",
+          className: "h-8 w-8 rounded-full",
+          onClick: () => moveMonth(-1),
+          children: /* @__PURE__ */ jsxDEV(ChevronLeft, { className: "h-4 w-4" }, void 0, false, {
+            fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+            lineNumber: 85,
+            columnNumber: 11
+          }, this)
+        },
+        void 0,
+        false,
+        {
+          fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+          lineNumber: 78,
+          columnNumber: 9
+        },
+        this
+      ),
+      /* @__PURE__ */ jsxDEV("strong", { className: "text-sm font-black text-slate-700", children: formatMonthLabel(activeMonth) }, void 0, false, {
+        fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+        lineNumber: 88,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV(
+        Button,
+        {
+          type: "button",
+          variant: "outline",
+          size: "icon",
+          className: "h-8 w-8 rounded-full",
+          onClick: () => moveMonth(1),
+          children: /* @__PURE__ */ jsxDEV(ChevronRight, { className: "h-4 w-4" }, void 0, false, {
+            fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+            lineNumber: 99,
+            columnNumber: 11
+          }, this)
+        },
+        void 0,
+        false,
+        {
+          fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+          lineNumber: 92,
+          columnNumber: 9
+        },
+        this
+      )
+    ] }, void 0, true, {
+      fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+      lineNumber: 77,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "grid grid-cols-7 gap-1 text-center text-[10px] font-black uppercase text-slate-400", children: WEEK_DAYS.map(
+      (day) => /* @__PURE__ */ jsxDEV("span", { children: day }, day, false, {
+        fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+        lineNumber: 105,
+        columnNumber: 9
+      }, this)
+    ) }, void 0, false, {
+      fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+      lineNumber: 103,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "mt-2 grid grid-cols-7 gap-1", children: dates.map((date) => {
+      const dateKey = toDateKey(date);
+      const isCurrentMonth = date.getMonth() === activeMonth.getMonth();
+      const isAvailable = availableDateSet.has(dateKey);
+      const isSelected = value === dateKey;
+      return /* @__PURE__ */ jsxDEV(
+        "button",
+        {
+          type: "button",
+          disabled: !isAvailable,
+          className: [
+            "h-8 rounded-xl text-xs font-black transition",
+            isCurrentMonth ? "text-slate-700" : "text-slate-300",
+            isAvailable ? "cursor-pointer border border-emerald-200 bg-emerald-50 hover:bg-emerald-100" : "cursor-not-allowed bg-slate-50 opacity-45",
+            isSelected ? "border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-600" : ""
+          ].join(" "),
+          onClick: () => onChange(dateKey),
+          title: isAvailable ? "Available raster date" : "No raster for this date",
+          children: date.getDate()
+        },
+        dateKey,
+        false,
+        {
+          fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+          lineNumber: 117,
+          columnNumber: 13
+        },
+        this
+      );
+    }) }, void 0, false, {
+      fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+      lineNumber: 109,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("p", { className: "mt-3 text-[11px] font-semibold text-slate-500", children: "Only dates with available raster mocks are enabled." }, void 0, false, {
+      fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+      lineNumber: 140,
+      columnNumber: 7
+    }, this)
+  ] }, void 0, true, {
+    fileName: "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx",
+    lineNumber: 76,
+    columnNumber: 5
+  }, this);
+}
+_s(DateCalendar, "lAYSZtIHdBYtGi1bUUvezRe1rmk=");
+_c = DateCalendar;
+var _c;
+$RefreshReg$(_c, "DateCalendar");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) {
+  return RefreshRuntime.register(type, "C:/Users/LENOVO/Desktop/robocare/poc v15/src/components/DateCalendar.tsx " + id);
+}
+function $RefreshSig$() {
+  return RefreshRuntime.createSignatureFunctionForTransform();
+}
+
+//# sourceMappingURL=data:application/json;base64,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Q1Q7QUFBQSxZQUNBRCxpQkFBaUIsbUJBQW1CO0FBQUEsWUFDcENDLGNBQ0ksZ0ZBQ0E7QUFBQSxZQUNKRSxhQUNJLHNFQUNBO0FBQUEsVUFBRSxFQUNOQyxLQUFLLEdBQUc7QUFBQSxVQUNWLFNBQVMsTUFBTWIsU0FBU3hCLE9BQU87QUFBQSxVQUMvQixPQUFPa0MsY0FBYywwQkFBMEI7QUFBQSxVQUU5QzVDLGVBQUtRLFFBQVE7QUFBQTtBQUFBLFFBaEJURTtBQUFBQSxRQURQO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsTUFrQkE7QUFBQSxJQUVKLENBQUMsS0E1Qkg7QUFBQTtBQUFBO0FBQUE7QUFBQSxXQTZCQTtBQUFBLElBRUEsdUJBQUMsT0FBRSxXQUFVLGlEQUErQyxtRUFBNUQ7QUFBQTtBQUFBO0FBQUE7QUFBQSxXQUVBO0FBQUEsT0FsRUY7QUFBQTtBQUFBO0FBQUE7QUFBQSxTQW1FQTtBQUVKO0FBQUN5QixHQWxHZUosY0FBWTtBQUFBLEtBQVpBO0FBQVksSUFBQWlCO0FBQUEsYUFBQUEsSUFBQSIsIm5hbWVzIjpbInVzZUVmZmVjdCIsInVzZU1lbW8iLCJ1c2VTdGF0ZSIsIkNoZXZyb25MZWZ0IiwiQ2hldnJvblJpZ2h0IiwiQnV0dG9uIiwiV0VFS19EQVlTIiwidG9EYXRlS2V5IiwiZGF0ZSIsInllYXIiLCJnZXRGdWxsWWVhciIsIm1vbnRoIiwiU3RyaW5nIiwiZ2V0TW9udGgiLCJwYWRTdGFydCIsImRheSIsImdldERhdGUiLCJwYXJzZURhdGVLZXkiLCJkYXRlS2V5Iiwic3BsaXQiLCJtYXAiLCJOdW1iZXIiLCJEYXRlIiwiZm9ybWF0TW9udGhMYWJlbCIsIkludGwiLCJEYXRlVGltZUZvcm1hdCIsImZvcm1hdCIsImdldE1vbnRoR3JpZCIsImFjdGl2ZU1vbnRoIiwiZmlyc3REYXkiLCJzdGFydE9mZnNldCIsImdldERheSIsImdyaWRTdGFydCIsIkFycmF5IiwiZnJvbSIsImxlbmd0aCIsIl8iLCJpbmRleCIsInNldERhdGUiLCJEYXRlQ2FsZW5kYXIiLCJ2YWx1ZSIsImF2YWlsYWJsZURhdGVzIiwib25DaGFuZ2UiLCJfcyIsInNldEFjdGl2ZU1vbnRoIiwiYXZhaWxhYmxlRGF0ZVNldCIsIlNldCIsImRhdGVzIiwibW92ZU1vbnRoIiwiZGlyZWN0aW9uIiwicHJldmlvdXNNb250aCIsImlzQ3VycmVudE1vbnRoIiwiaXNBdmFpbGFibGUiLCJoYXMiLCJpc1NlbGVjdGVkIiwiam9pbiIsIl9jIl0sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbIkRhdGVDYWxlbmRhci50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgdXNlRWZmZWN0LCB1c2VNZW1vLCB1c2VTdGF0ZSB9IGZyb20gXCJyZWFjdFwiO1xuaW1wb3J0IHsgQ2hldnJvbkxlZnQsIENoZXZyb25SaWdodCB9IGZyb20gXCJsdWNpZGUtcmVhY3RcIjtcbmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gXCIuL3VpL2J1dHRvblwiO1xuXG5jb25zdCBXRUVLX0RBWVMgPSBbXCJNb25cIiwgXCJUdWVcIiwgXCJXZWRcIiwgXCJUaHVcIiwgXCJGcmlcIiwgXCJTYXRcIiwgXCJTdW5cIl07XG5cbmZ1bmN0aW9uIHRvRGF0ZUtleShkYXRlOiBEYXRlKSB7XG4gIGNvbnN0IHllYXIgPSBkYXRlLmdldEZ1bGxZZWFyKCk7XG4gIGNvbnN0IG1vbnRoID0gU3RyaW5nKGRhdGUuZ2V0TW9udGgoKSArIDEpLnBhZFN0YXJ0KDIsIFwiMFwiKTtcbiAgY29uc3QgZGF5ID0gU3RyaW5nKGRhdGUuZ2V0RGF0ZSgpKS5wYWRTdGFydCgyLCBcIjBcIik7XG5cbiAgcmV0dXJuIGAke3llYXJ9LSR7bW9udGh9LSR7ZGF5fWA7XG59XG5cbmZ1bmN0aW9uIHBhcnNlRGF0ZUtleShkYXRlS2V5OiBzdHJpbmcpIHtcbiAgY29uc3QgW3llYXIsIG1vbnRoLCBkYXldID0gZGF0ZUtleS5zcGxpdChcIi1cIikubWFwKE51bWJlcik7XG4gIHJldHVybiBuZXcgRGF0ZSh5ZWFyLCBtb250aCAtIDEsIGRheSk7XG59XG5cbmZ1bmN0aW9uIGZvcm1hdE1vbnRoTGFiZWwoZGF0ZTogRGF0ZSkge1xuICByZXR1cm4gbmV3IEludGwuRGF0ZVRpbWVGb3JtYXQoXCJlblwiLCB7XG4gICAgbW9udGg6IFwibG9uZ1wiLFxuICAgIHllYXI6IFwibnVtZXJpY1wiLFxuICB9KS5mb3JtYXQoZGF0ZSk7XG59XG5cbmZ1bmN0aW9uIGdldE1vbnRoR3JpZChhY3RpdmVNb250aDogRGF0ZSkge1xuICBjb25zdCB5ZWFyID0gYWN0aXZlTW9udGguZ2V0RnVsbFllYXIoKTtcbiAgY29uc3QgbW9udGggPSBhY3RpdmVNb250aC5nZXRNb250aCgpO1xuICBjb25zdCBmaXJzdERheSA9IG5ldyBEYXRlKHllYXIsIG1vbnRoLCAxKTtcbiAgY29uc3Qgc3RhcnRPZmZzZXQgPSAoZmlyc3REYXkuZ2V0RGF5KCkgKyA2KSAlIDc7XG4gIGNvbnN0IGdyaWRTdGFydCA9IG5ldyBEYXRlKHllYXIsIG1vbnRoLCAxIC0gc3RhcnRPZmZzZXQpO1xuXG4gIHJldHVybiBBcnJheS5mcm9tKHsgbGVuZ3RoOiA0MiB9LCAoXywgaW5kZXgpID0+IHtcbiAgICBjb25zdCBkYXRlID0gbmV3IERhdGUoZ3JpZFN0YXJ0KTtcbiAgICBkYXRlLnNldERhdGUoZ3JpZFN0YXJ0LmdldERhdGUoKSArIGluZGV4KTtcbiAgICByZXR1cm4gZGF0ZTtcbiAgfSk7XG59XG5cbnR5cGUgRGF0ZUNhbGVuZGFyUHJvcHMgPSB7XG4gIHZhbHVlOiBzdHJpbmc7XG4gIGF2YWlsYWJsZURhdGVzOiBzdHJpbmdbXTtcbiAgb25DaGFuZ2U6IChkYXRlOiBzdHJpbmcpID0+IHZvaWQ7XG59O1xuXG5leHBvcnQgZnVuY3Rpb24gRGF0ZUNhbGVuZGFyKHtcbiAgdmFsdWUsXG4gIGF2YWlsYWJsZURhdGVzLFxuICBvbkNoYW5nZSxcbn06IERhdGVDYWxlbmRhclByb3BzKSB7XG4gIGNvbnN0IFthY3RpdmVNb250aCwgc2V0QWN0aXZlTW9udGhdID0gdXNlU3RhdGUoKCkgPT4gcGFyc2VEYXRlS2V5KHZhbHVlKSk7XG5cbiAgY29uc3QgYXZhaWxhYmxlRGF0ZVNldCA9IHVzZU1lbW8oXG4gICAgKCkgPT4gbmV3IFNldChhdmFpbGFibGVEYXRlcyksXG4gICAgW2F2YWlsYWJsZURhdGVzXSxcbiAgKTtcblxuICBjb25zdCBkYXRlcyA9IHVzZU1lbW8oKCkgPT4gZ2V0TW9udGhHcmlkKGFjdGl2ZU1vbnRoKSwgW2FjdGl2ZU1vbnRoXSk7XG5cbiAgdXNlRWZmZWN0KCgpID0+IHtcbiAgICBzZXRBY3RpdmVNb250aChwYXJzZURhdGVLZXkodmFsdWUpKTtcbiAgfSwgW3ZhbHVlXSk7XG5cbiAgZnVuY3Rpb24gbW92ZU1vbnRoKGRpcmVjdGlvbjogLTEgfCAxKSB7XG4gICAgc2V0QWN0aXZlTW9udGgoKHByZXZpb3VzTW9udGgpID0+IHtcbiAgICAgIHJldHVybiBuZXcgRGF0ZShcbiAgICAgICAgcHJldmlvdXNNb250aC5nZXRGdWxsWWVhcigpLFxuICAgICAgICBwcmV2aW91c01vbnRoLmdldE1vbnRoKCkgKyBkaXJlY3Rpb24sXG4gICAgICAgIDEsXG4gICAgICApO1xuICAgIH0pO1xuICB9XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2IGNsYXNzTmFtZT1cInJvdW5kZWQtMnhsIGJvcmRlciBiZy13aGl0ZSBwLTMgc2hhZG93LXNtXCI+XG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cIm1iLTMgZmxleCBpdGVtcy1jZW50ZXIganVzdGlmeS1iZXR3ZWVuIGdhcC0yXCI+XG4gICAgICAgIDxCdXR0b25cbiAgICAgICAgICB0eXBlPVwiYnV0dG9uXCJcbiAgICAgICAgICB2YXJpYW50PVwib3V0bGluZVwiXG4gICAgICAgICAgc2l6ZT1cImljb25cIlxuICAgICAgICAgIGNsYXNzTmFtZT1cImgtOCB3LTggcm91bmRlZC1mdWxsXCJcbiAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBtb3ZlTW9udGgoLTEpfVxuICAgICAgICA+XG4gICAgICAgICAgPENoZXZyb25MZWZ0IGNsYXNzTmFtZT1cImgtNCB3LTRcIiAvPlxuICAgICAgICA8L0J1dHRvbj5cblxuICAgICAgICA8c3Ryb25nIGNsYXNzTmFtZT1cInRleHQtc20gZm9udC1ibGFjayB0ZXh0LXNsYXRlLTcwMFwiPlxuICAgICAgICAgIHtmb3JtYXRNb250aExhYmVsKGFjdGl2ZU1vbnRoKX1cbiAgICAgICAgPC9zdHJvbmc+XG5cbiAgICAgICAgPEJ1dHRvblxuICAgICAgICAgIHR5cGU9XCJidXR0b25cIlxuICAgICAgICAgIHZhcmlhbnQ9XCJvdXRsaW5lXCJcbiAgICAgICAgICBzaXplPVwiaWNvblwiXG4gICAgICAgICAgY2xhc3NOYW1lPVwiaC04IHctOCByb3VuZGVkLWZ1bGxcIlxuICAgICAgICAgIG9uQ2xpY2s9eygpID0+IG1vdmVNb250aCgxKX1cbiAgICAgICAgPlxuICAgICAgICAgIDxDaGV2cm9uUmlnaHQgY2xhc3NOYW1lPVwiaC00IHctNFwiIC8+XG4gICAgICAgIDwvQnV0dG9uPlxuICAgICAgPC9kaXY+XG5cbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZ3JpZCBncmlkLWNvbHMtNyBnYXAtMSB0ZXh0LWNlbnRlciB0ZXh0LVsxMHB4XSBmb250LWJsYWNrIHVwcGVyY2FzZSB0ZXh0LXNsYXRlLTQwMFwiPlxuICAgICAgICB7V0VFS19EQVlTLm1hcCgoZGF5KSA9PiAoXG4gICAgICAgICAgPHNwYW4ga2V5PXtkYXl9PntkYXl9PC9zcGFuPlxuICAgICAgICApKX1cbiAgICAgIDwvZGl2PlxuXG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cIm10LTIgZ3JpZCBncmlkLWNvbHMtNyBnYXAtMVwiPlxuICAgICAgICB7ZGF0ZXMubWFwKChkYXRlKSA9PiB7XG4gICAgICAgICAgY29uc3QgZGF0ZUtleSA9IHRvRGF0ZUtleShkYXRlKTtcbiAgICAgICAgICBjb25zdCBpc0N1cnJlbnRNb250aCA9IGRhdGUuZ2V0TW9udGgoKSA9PT0gYWN0aXZlTW9udGguZ2V0TW9udGgoKTtcbiAgICAgICAgICBjb25zdCBpc0F2YWlsYWJsZSA9IGF2YWlsYWJsZURhdGVTZXQuaGFzKGRhdGVLZXkpO1xuICAgICAgICAgIGNvbnN0IGlzU2VsZWN0ZWQgPSB2YWx1ZSA9PT0gZGF0ZUtleTtcblxuICAgICAgICAgIHJldHVybiAoXG4gICAgICAgICAgICA8YnV0dG9uXG4gICAgICAgICAgICAgIGtleT17ZGF0ZUtleX1cbiAgICAgICAgICAgICAgdHlwZT1cImJ1dHRvblwiXG4gICAgICAgICAgICAgIGRpc2FibGVkPXshaXNBdmFpbGFibGV9XG4gICAgICAgICAgICAgIGNsYXNzTmFtZT17W1xuICAgICAgICAgICAgICAgIFwiaC04IHJvdW5kZWQteGwgdGV4dC14cyBmb250LWJsYWNrIHRyYW5zaXRpb25cIixcbiAgICAgICAgICAgICAgICBpc0N1cnJlbnRNb250aCA/IFwidGV4dC1zbGF0ZS03MDBcIiA6IFwidGV4dC1zbGF0ZS0zMDBcIixcbiAgICAgICAgICAgICAgICBpc0F2YWlsYWJsZVxuICAgICAgICAgICAgICAgICAgPyBcImN1cnNvci1wb2ludGVyIGJvcmRlciBib3JkZXItZW1lcmFsZC0yMDAgYmctZW1lcmFsZC01MCBob3ZlcjpiZy1lbWVyYWxkLTEwMFwiXG4gICAgICAgICAgICAgICAgICA6IFwiY3Vyc29yLW5vdC1hbGxvd2VkIGJnLXNsYXRlLTUwIG9wYWNpdHktNDVcIixcbiAgICAgICAgICAgICAgICBpc1NlbGVjdGVkXG4gICAgICAgICAgICAgICAgICA/IFwiYm9yZGVyLWVtZXJhbGQtNjAwIGJnLWVtZXJhbGQtNjAwIHRleHQtd2hpdGUgaG92ZXI6YmctZW1lcmFsZC02MDBcIlxuICAgICAgICAgICAgICAgICAgOiBcIlwiLFxuICAgICAgICAgICAgICBdLmpvaW4oXCIgXCIpfVxuICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBvbkNoYW5nZShkYXRlS2V5KX1cbiAgICAgICAgICAgICAgdGl0bGU9e2lzQXZhaWxhYmxlID8gXCJBdmFpbGFibGUgcmFzdGVyIGRhdGVcIiA6IFwiTm8gcmFzdGVyIGZvciB0aGlzIGRhdGVcIn1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAge2RhdGUuZ2V0RGF0ZSgpfVxuICAgICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAgKTtcbiAgICAgICAgfSl9XG4gICAgICA8L2Rpdj5cblxuICAgICAgPHAgY2xhc3NOYW1lPVwibXQtMyB0ZXh0LVsxMXB4XSBmb250LXNlbWlib2xkIHRleHQtc2xhdGUtNTAwXCI+XG4gICAgICAgIE9ubHkgZGF0ZXMgd2l0aCBhdmFpbGFibGUgcmFzdGVyIG1vY2tzIGFyZSBlbmFibGVkLlxuICAgICAgPC9wPlxuICAgIDwvZGl2PlxuICApO1xufVxuIl0sImZpbGUiOiJDOi9Vc2Vycy9MRU5PVk8vRGVza3RvcC9yb2JvY2FyZS9wb2MgdjE1L3NyYy9jb21wb25lbnRzL0RhdGVDYWxlbmRhci50c3gifQ==
