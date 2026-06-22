@@ -11,15 +11,18 @@
     "msw:init": "msw init public/ --save",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "check:poc": "npm run lint && npm run typecheck && npm run build",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "check:poc": "npm run lint && npm run typecheck && npm run format:check && npm run build",
     "prepare": "husky"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
-      "eslint --max-warnings=0"
+      "eslint --fix --max-warnings=0",
+      "prettier --write"
     ],
-    "*.{ts,tsx,js,jsx,json,css,md}": [
-      "prettier --check"
+    "*.{json,css,md}": [
+      "prettier --write"
     ]
   },
   "dependencies": {

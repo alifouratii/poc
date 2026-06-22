@@ -1,4 +1,7 @@
-export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> {
+export async function fetchJson<T>(
+  url: string,
+  init?: RequestInit,
+): Promise<T> {
   const response = await fetch(url, {
     headers: {
       "Content-Type": "application/json",
@@ -11,7 +14,9 @@ export async function fetchJson<T>(url: string, init?: RequestInit): Promise<T> 
     let errorMessage = `Request failed: ${response.status} ${response.statusText}`;
 
     try {
-      const errorPayload = (await response.clone().json()) as { message?: string };
+      const errorPayload = (await response.clone().json()) as {
+        message?: string;
+      };
 
       if (errorPayload.message) {
         errorMessage = errorPayload.message;
