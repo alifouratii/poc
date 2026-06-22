@@ -8,7 +8,19 @@
     "dev:mock": "vite --mode mock",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "msw:init": "msw init public/ --save"
+    "msw:init": "msw init public/ --save",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "check:poc": "npm run lint && npm run typecheck && npm run build",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --max-warnings=0"
+    ],
+    "*.{ts,tsx,js,jsx,json,css,md}": [
+      "prettier --check"
+    ]
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
@@ -30,10 +42,19 @@
     "vite": "^7.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^25.9.3",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
-    "typescript": "^5.8.0"
+    "eslint": "^10.5.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.8",
+    "prettier": "^3.8.4",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.61.1"
   },
   "msw": {
     "workerDirectory": [

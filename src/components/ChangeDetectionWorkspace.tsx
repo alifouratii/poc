@@ -1,10 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  Activity,
-  ArrowLeftRight,
-  GitCompareArrows,
-  RotateCcw,
-} from "lucide-react";
+import { Activity, ArrowLeftRight, GitCompareArrows } from "lucide-react";
 import { getChangeDetection } from "../api/taskApi";
 import {
   buildChangeDetectionRasterConfig,
@@ -28,7 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { Slider } from "./ui/slider";
 import type {
   ChangeDetectionApiResponse,
   TaskGetRequest,
@@ -75,7 +69,7 @@ export function ChangeDetectionWorkspace({
   const [debouncedRange, setDebouncedRange] = useState<[number, number] | null>(
     null,
   );
-  const [opacity, setOpacity] = useState(1);
+  const [opacity] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 

@@ -19,7 +19,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./components/ui/select";
-import { Slider } from "./components/ui/slider";
 import {
   demoTasks,
   findDemoTaskByKey,
@@ -67,7 +66,7 @@ export function App() {
     null,
   );
   const [selectedIndex, setSelectedIndex] = useState<VegetationIndex>("NDVI");
-  const [opacity, setOpacity] = useState(1);
+  const [opacity] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [isTaskLoading, setIsTaskLoading] = useState(false);
   const [comparisonMode, setComparisonMode] = useState<

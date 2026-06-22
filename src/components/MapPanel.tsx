@@ -73,10 +73,15 @@ export function MapPanel({
   const opacityRef = useRef(opacity);
   const currentFieldIdRef = useRef(field.id);
   const rasterRequestIdRef = useRef(0);
+  const initialCenterRef = useRef(field.center);
+  const initialZoomRef = useRef(field.zoom ?? 13);
 
   const [rasterStatus, setRasterStatus] = useState<RasterStatus>("idle");
   const [rasterError, setRasterError] = useState<string | null>(null);
   const [isMapReady, setIsMapReady] = useState(false);
+
+  const [fieldLongitude, fieldLatitude] = field.center;
+
   const showMapLoading = taskLoading || rasterStatus === "loading";
   const loadingText = taskLoading
     ? "Loading selected field..."
@@ -102,17 +107,19 @@ export function MapPanel({
     const map = new maplibregl.Map({
       container: mapElementRef.current,
       style: satelliteStyle,
-      center: field.center,
-      zoom: field.zoom ?? 13,
+      center: initialCenterRef.current,
+      zoom: initialZoomRef.current,
       attributionControl: { compact: true },
     });
 
     map.addControl(new maplibregl.NavigationControl(), "top-right");
 
     mapRef.current = map;
+
     map.once("load", () => {
       setIsMapReady(true);
     });
+
     return () => {
       map.remove();
       mapRef.current = null;
@@ -136,7 +143,7 @@ export function MapPanel({
       }
 
       map.flyTo({
-        center: field.center,
+        center: [fieldLongitude, fieldLatitude],
         zoom: field.zoom ?? 13,
         duration: isSameField ? 650 : 1400,
         speed: 0.9,
@@ -148,7 +155,7 @@ export function MapPanel({
     return () => {
       cancelled = true;
     };
-  }, [field.id, field.center, field.zoom]);
+  }, [field.id, fieldLongitude, fieldLatitude, field.zoom]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -305,12 +312,6 @@ export function MapPanel({
           );
 
           currentMap.triggerRepaint();
-
-          /**
-           * Important:
-           * Stop loading after source/layer is added.
-           * Do not wait for idle/sourceLoaded.
-           */
           finishReady();
         } catch (mapError) {
           finishWithError(
@@ -365,13 +366,9 @@ export function MapPanel({
       if (timeoutTimer) {
         window.clearTimeout(timeoutTimer);
       }
-
-      /**
-       * Do not remove raster here.
-       * Cleanup cancels only the old request.
-       */
     };
   }, [isMapReady, raster.tileJsonUrl, raster.backendTifFile, raster.rescale]);
+
   return (
     <Card className="overflow-hidden rounded-3xl">
       <CardHeader className="flex flex-row items-start justify-between gap-4">

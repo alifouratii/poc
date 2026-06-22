@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeftRight, GitCompareArrows, RotateCcw } from "lucide-react";
+import { ArrowLeftRight, GitCompareArrows } from "lucide-react";
 import { getSameTaskComparisonSide } from "../api/taskApi";
 import { buildRasterConfigFromTaskGet } from "../config/titiler";
 import { getLatestDateComparisonPair } from "../mocks/taskGetResponses";
-import { applyIndexOnlyResponseToTask, normalizeTaskApiResponse } from "../utils/taskApiResponseAdapter";
+import {
+  applyIndexOnlyResponseToTask,
+  normalizeTaskApiResponse,
+} from "../utils/taskApiResponseAdapter";
 import {
   taskResponseToField,
   taskResponseToHistogram,
@@ -82,9 +85,7 @@ function getSideTitle(side: ComparisonSide) {
 }
 
 function getEndpointTitle(side: ComparisonSide) {
-  return side === "left"
-    ? "meme-task / left"
-    : "meme-task / right";
+  return side === "left" ? "meme-task / left" : "meme-task / right";
 }
 
 type ComparisonSidePanelProps = {
@@ -155,7 +156,9 @@ function ComparisonSidePanel({
               <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-600">
                 {getEndpointTitle(side)}
               </p>
-              <CardTitle className="mt-1 text-xl">{getSideTitle(side)}</CardTitle>
+              <CardTitle className="mt-1 text-xl">
+                {getSideTitle(side)}
+              </CardTitle>
             </div>
 
             <Badge variant="secondary">
@@ -174,14 +177,18 @@ function ComparisonSidePanel({
             </div>
 
             <div className="rounded-2xl border bg-slate-50 p-3">
-              <span className="font-black uppercase text-slate-400">Min / Max</span>
+              <span className="font-black uppercase text-slate-400">
+                Min / Max
+              </span>
               <strong className="mt-1 block text-sm text-slate-800">
                 {histogram.min.toFixed(4)} → {histogram.max.toFixed(4)}
               </strong>
             </div>
 
             <div className="rounded-2xl border bg-slate-50 p-3">
-              <span className="font-black uppercase text-slate-400">Bornes</span>
+              <span className="font-black uppercase text-slate-400">
+                Bornes
+              </span>
               <strong className="mt-1 block text-sm text-slate-800">
                 {activeRange
                   ? `${activeRange[0].toFixed(4)} → ${activeRange[1].toFixed(4)}`
@@ -213,7 +220,10 @@ function ComparisonSidePanel({
   );
 }
 
-export function ComparisonWorkspace({ payload, onClose }: ComparisonWorkspaceProps) {
+export function ComparisonWorkspace({
+  payload,
+  onClose,
+}: ComparisonWorkspaceProps) {
   const comparisonRequest = useMemo(
     () => buildEndpointComparisonRequest(payload),
     [payload],
@@ -315,7 +325,8 @@ export function ComparisonWorkspace({ payload, onClose }: ComparisonWorkspacePro
           return;
         }
 
-        const rawMessage = error instanceof Error ? error.message : String(error);
+        const rawMessage =
+          error instanceof Error ? error.message : String(error);
         const message = rawMessage.includes("Endpoint comparison")
           ? `${rawMessage} Choose a field/date/index/scope that contains both left and right endpoint comparison data, or go back to normal view.`
           : rawMessage;
@@ -386,10 +397,10 @@ export function ComparisonWorkspace({ payload, onClose }: ComparisonWorkspacePro
             </h1>
 
             <p className="mt-2 max-w-3xl text-sm font-semibold text-slate-500">
-              The button keeps the user on the same page and switches the workspace
-              to a left/right comparison. Each side calls its own task endpoint and
-              its own index endpoint, then renders its own histogram, bornes and
-              TiTiler raster.
+              The button keeps the user on the same page and switches the
+              workspace to a left/right comparison. Each side calls its own task
+              endpoint and its own index endpoint, then renders its own
+              histogram, bornes and TiTiler raster.
             </p>
           </div>
 

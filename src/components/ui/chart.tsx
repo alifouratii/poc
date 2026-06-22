@@ -136,7 +136,10 @@ export function ChartTooltipContent({
   hideLabel?: boolean;
   hideIndicator?: boolean;
   label?: React.ReactNode;
-  labelFormatter?: (label: React.ReactNode, payload: unknown[]) => React.ReactNode;
+  labelFormatter?: (
+    label: React.ReactNode,
+    payload: unknown[],
+  ) => React.ReactNode;
   formatter?: (
     value: unknown,
     name: unknown,
@@ -147,12 +150,8 @@ export function ChartTooltipContent({
 }) {
   const { config } = useChart();
 
-  if (!active || !payload?.length) {
-    return null;
-  }
-
   const tooltipLabel = React.useMemo(() => {
-    if (hideLabel) {
+    if (!active || !payload?.length || hideLabel) {
       return null;
     }
 
@@ -165,7 +164,11 @@ export function ChartTooltipContent({
     }
 
     return <div className="font-black text-slate-700">{label}</div>;
-  }, [hideLabel, label, labelFormatter, payload]);
+  }, [active, hideLabel, label, labelFormatter, payload]);
+
+  if (!active || !payload?.length) {
+    return null;
+  }
 
   return (
     <div
@@ -180,7 +183,9 @@ export function ChartTooltipContent({
         {payload.map((item, index) => {
           const key = String(item.dataKey ?? item.name ?? "value");
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
-          const color = String(item.color ?? item.fill ?? itemConfig?.color ?? "#86c232");
+          const color = String(
+            item.color ?? item.fill ?? itemConfig?.color ?? "#86c232",
+          );
 
           if (formatter) {
             return (
@@ -202,7 +207,8 @@ export function ChartTooltipContent({
                       "shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg]",
                       indicator === "dot" && "h-2.5 w-2.5 rounded-full",
                       indicator === "line" && "h-2.5 w-1",
-                      indicator === "dashed" && "h-0 w-4 border-t-2 bg-transparent",
+                      indicator === "dashed" &&
+                        "h-0 w-4 border-t-2 bg-transparent",
                     )}
                     style={
                       {
