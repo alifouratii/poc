@@ -1,5 +1,9 @@
 import { http, HttpResponse } from "msw";
-import { findTaskGetIndexMock, findTaskGetMock, taskGetMocks } from "./taskGetResponses";
+import {
+  findTaskGetIndexMock,
+  findTaskGetMock,
+  taskGetMocks,
+} from "./taskGetResponses";
 import {
   findEndpointComparisonIndexMock,
   findEndpointComparisonTaskMock,
@@ -9,7 +13,11 @@ import {
   findChangeDetectionMock,
   getChangeDetectionAvailableRequests,
 } from "./changeDetectionMocks";
-import type { ChangeDetectionRequest, EndpointComparisonRequest, TaskGetRequest } from "../types/robocare";
+import type {
+  ChangeDetectionRequest,
+  EndpointComparisonRequest,
+  TaskGetRequest,
+} from "../types/robocare";
 
 export const handlers = [
   http.post("/api/task/get/", async ({ request }) => {
@@ -50,81 +58,93 @@ export const handlers = [
     return HttpResponse.json(mock.response);
   }),
 
-  http.post("/api/task/get/comparaison/meme-task/left/", async ({ request }) => {
-    const body = (await request.json()) as EndpointComparisonRequest;
-    const mock = findEndpointComparisonTaskMock("left", body);
+  http.post(
+    "/api/task/get/comparaison/meme-task/left/",
+    async ({ request }) => {
+      const body = (await request.json()) as EndpointComparisonRequest;
+      const mock = findEndpointComparisonTaskMock("left", body);
 
-    if (!mock) {
-      return HttpResponse.json(
-        {
-          message:
-            "Endpoint comparison is not available for this task/date/index/scope on the left side.",
-          received: body,
-          available: getEndpointComparisonAvailableRequests(),
-        },
-        { status: 404 },
-      );
-    }
+      if (!mock) {
+        return HttpResponse.json(
+          {
+            message:
+              "Endpoint comparison is not available for this task/date/index/scope on the left side.",
+            received: body,
+            available: getEndpointComparisonAvailableRequests(),
+          },
+          { status: 404 },
+        );
+      }
 
-    return HttpResponse.json(mock.taskResponse);
-  }),
+      return HttpResponse.json(mock.taskResponse);
+    },
+  ),
 
-  http.post("/api/task/get/comparaison/meme-task/right/", async ({ request }) => {
-    const body = (await request.json()) as EndpointComparisonRequest;
-    const mock = findEndpointComparisonTaskMock("right", body);
+  http.post(
+    "/api/task/get/comparaison/meme-task/right/",
+    async ({ request }) => {
+      const body = (await request.json()) as EndpointComparisonRequest;
+      const mock = findEndpointComparisonTaskMock("right", body);
 
-    if (!mock) {
-      return HttpResponse.json(
-        {
-          message:
-            "Endpoint comparison is not available for this task/date/index/scope on the right side.",
-          received: body,
-          available: getEndpointComparisonAvailableRequests(),
-        },
-        { status: 404 },
-      );
-    }
+      if (!mock) {
+        return HttpResponse.json(
+          {
+            message:
+              "Endpoint comparison is not available for this task/date/index/scope on the right side.",
+            received: body,
+            available: getEndpointComparisonAvailableRequests(),
+          },
+          { status: 404 },
+        );
+      }
 
-    return HttpResponse.json(mock.taskResponse);
-  }),
+      return HttpResponse.json(mock.taskResponse);
+    },
+  ),
 
-  http.post("/api/task/get/index/comparaison/meme-task/left/", async ({ request }) => {
-    const body = (await request.json()) as EndpointComparisonRequest;
-    const mock = findEndpointComparisonIndexMock("left", body);
+  http.post(
+    "/api/task/get/index/comparaison/meme-task/left/",
+    async ({ request }) => {
+      const body = (await request.json()) as EndpointComparisonRequest;
+      const mock = findEndpointComparisonIndexMock("left", body);
 
-    if (!mock) {
-      return HttpResponse.json(
-        {
-          message:
-            "Endpoint comparison index is not available for this task/date/index/scope on the left side.",
-          received: body,
-          available: getEndpointComparisonAvailableRequests(),
-        },
-        { status: 404 },
-      );
-    }
+      if (!mock) {
+        return HttpResponse.json(
+          {
+            message:
+              "Endpoint comparison index is not available for this task/date/index/scope on the left side.",
+            received: body,
+            available: getEndpointComparisonAvailableRequests(),
+          },
+          { status: 404 },
+        );
+      }
 
-    return HttpResponse.json(mock.indexResponse);
-  }),
+      return HttpResponse.json(mock.indexResponse);
+    },
+  ),
 
-  http.post("/api/task/get/index/comparaison/meme-task/right/", async ({ request }) => {
-    const body = (await request.json()) as EndpointComparisonRequest;
-    const mock = findEndpointComparisonIndexMock("right", body);
+  http.post(
+    "/api/task/get/index/comparaison/meme-task/right/",
+    async ({ request }) => {
+      const body = (await request.json()) as EndpointComparisonRequest;
+      const mock = findEndpointComparisonIndexMock("right", body);
 
-    if (!mock) {
-      return HttpResponse.json(
-        {
-          message:
-            "Endpoint comparison index is not available for this task/date/index/scope on the right side.",
-          received: body,
-          available: getEndpointComparisonAvailableRequests(),
-        },
-        { status: 404 },
-      );
-    }
+      if (!mock) {
+        return HttpResponse.json(
+          {
+            message:
+              "Endpoint comparison index is not available for this task/date/index/scope on the right side.",
+            received: body,
+            available: getEndpointComparisonAvailableRequests(),
+          },
+          { status: 404 },
+        );
+      }
 
-    return HttpResponse.json(mock.indexResponse);
-  }),
+      return HttpResponse.json(mock.indexResponse);
+    },
+  ),
 
   http.post("/api/task/get/index/difference/", async ({ request }) => {
     const body = (await request.json()) as ChangeDetectionRequest;

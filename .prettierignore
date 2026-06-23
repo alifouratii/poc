@@ -1,0 +1,6 @@
+@"
+dist
+node_modules
+public/mockServiceWorker.js
+.vscode/chrome-debug-profile
+"@ | Set-Content .prettierignore

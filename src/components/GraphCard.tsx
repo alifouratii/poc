@@ -57,7 +57,13 @@ export function GraphCard({ points }: GraphCardProps) {
             margin={{ top: 18, right: 18, bottom: 8, left: 0 }}
           >
             <defs>
-              <linearGradient id="vegetationValueGradient" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient
+                id="vegetationValueGradient"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="1"
+              >
                 <stop offset="5%" stopColor="#40b3e2" stopOpacity={0.34} />
                 <stop offset="70%" stopColor="#45c979" stopOpacity={0.1} />
                 <stop offset="100%" stopColor="#45c979" stopOpacity={0} />
@@ -117,7 +123,12 @@ export function GraphCard({ points }: GraphCardProps) {
               stroke="var(--color-value)"
               strokeWidth={3}
               dot={{ r: 4, fill: "#ffffff", stroke: "#40b3e2", strokeWidth: 2 }}
-              activeDot={{ r: 6, fill: "#40b3e2", stroke: "#ffffff", strokeWidth: 3 }}
+              activeDot={{
+                r: 6,
+                fill: "#40b3e2",
+                stroke: "#ffffff",
+                strokeWidth: 3,
+              }}
             />
           </AreaChart>
         </ChartContainer>

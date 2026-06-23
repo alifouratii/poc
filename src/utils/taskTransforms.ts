@@ -46,14 +46,19 @@ function buildLiveHistogramBins(response: TaskGetResponse): HistogramBin[] {
   const domainMin = Math.min(index.min, index.max);
   const domainMax = Math.max(index.min, index.max);
 
-  if (!Number.isFinite(domainMin) || !Number.isFinite(domainMax) || domainMin === domainMax) {
+  if (
+    !Number.isFinite(domainMin) ||
+    !Number.isFinite(domainMax) ||
+    domainMin === domainMax
+  ) {
     return [];
   }
 
   const fallbackStep = (domainMax - domainMin) / counts.length;
 
   return counts.map((count, binIndex) => {
-    const currentValue = values[binIndex] ?? domainMin + fallbackStep * binIndex;
+    const currentValue =
+      values[binIndex] ?? domainMin + fallbackStep * binIndex;
     const nextValue =
       values[binIndex + 1] ??
       (binIndex === counts.length - 1

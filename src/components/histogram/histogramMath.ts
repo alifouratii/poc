@@ -50,7 +50,9 @@ export function normalizeRange(
 
 export function valueToX(value: number, histogram: HistogramResponse) {
   const plotWidth =
-    HISTOGRAM_CHART.width - HISTOGRAM_CHART.plotLeft - HISTOGRAM_CHART.plotRight;
+    HISTOGRAM_CHART.width -
+    HISTOGRAM_CHART.plotLeft -
+    HISTOGRAM_CHART.plotRight;
   const ratio =
     (value - histogram.min) / Math.max(histogram.max - histogram.min, 0.000001);
 
@@ -59,7 +61,9 @@ export function valueToX(value: number, histogram: HistogramResponse) {
 
 export function xToValue(x: number, histogram: HistogramResponse) {
   const plotWidth =
-    HISTOGRAM_CHART.width - HISTOGRAM_CHART.plotLeft - HISTOGRAM_CHART.plotRight;
+    HISTOGRAM_CHART.width -
+    HISTOGRAM_CHART.plotLeft -
+    HISTOGRAM_CHART.plotRight;
   const ratio = clamp((x - HISTOGRAM_CHART.plotLeft) / plotWidth, 0, 1);
 
   return histogram.min + ratio * (histogram.max - histogram.min);

@@ -14,7 +14,12 @@ import type {
 } from "../types/robocare";
 
 type EndpointComparisonScenario = {
-  key: Required<Pick<EndpointComparisonRequest, "id" | "provider" | "date_left" | "date_right">> & {
+  key: Required<
+    Pick<
+      EndpointComparisonRequest,
+      "id" | "provider" | "date_left" | "date_right"
+    >
+  > & {
     index: VegetationIndex;
     field_zone: string | null;
   };
@@ -56,8 +61,10 @@ function buildScenarioFromResponses(
   rightIndexResponse: IndexOnlyApiResponse,
 ): EndpointComparisonScenario {
   const leftTaskRequest = getTaskGetRequestFromApiResponse(leftTaskResponse);
-  const leftDate = getIndexResponseDate(leftIndexResponse) ?? leftTaskRequest.date;
-  const rightDate = getIndexResponseDate(rightIndexResponse) ?? leftTaskRequest.date;
+  const leftDate =
+    getIndexResponseDate(leftIndexResponse) ?? leftTaskRequest.date;
+  const rightDate =
+    getIndexResponseDate(rightIndexResponse) ?? leftTaskRequest.date;
 
   return {
     key: {
@@ -103,8 +110,10 @@ function isSameEndpointComparisonScenario(
     scenario.key.id === receivedRequest.id &&
     normalizeProvider(scenario.key.provider) ===
       normalizeProvider(receivedRequest.provider) &&
-    scenario.key.date_left === (receivedRequest.date_left ?? receivedRequest.date) &&
-    scenario.key.date_right === (receivedRequest.date_right ?? receivedRequest.date) &&
+    scenario.key.date_left ===
+      (receivedRequest.date_left ?? receivedRequest.date) &&
+    scenario.key.date_right ===
+      (receivedRequest.date_right ?? receivedRequest.date) &&
     scenario.key.index === receivedIndex &&
     normalizeFieldZone(scenario.key.field_zone) ===
       normalizeFieldZone(receivedRequest.field_zone)

@@ -105,7 +105,8 @@ export const taskGetMocks: TaskGetMock[] = rawTaskGetApiResponses.map(
 
 function isSameTaskAndProvider(a: TaskGetRequest, b: TaskGetRequest) {
   return (
-    a.id === b.id && normalizeProvider(a.provider) === normalizeProvider(b.provider)
+    a.id === b.id &&
+    normalizeProvider(a.provider) === normalizeProvider(b.provider)
   );
 }
 
@@ -199,7 +200,6 @@ export function getAvailableFullTaskDatesFromApiMocks(
   return Array.from(dates).sort();
 }
 
-
 export function getAvailableDatesFromApiMocksIgnoringScope(
   payload: TaskGetRequest,
   index: VegetationIndex,
@@ -243,7 +243,9 @@ export function getAvailableScopesFromApiMocks(
     .sort((left, right) => {
       if (left === null) return -1;
       if (right === null) return 1;
-      return getScopeLabel(payload, left).localeCompare(getScopeLabel(payload, right));
+      return getScopeLabel(payload, left).localeCompare(
+        getScopeLabel(payload, right),
+      );
     })
     .map((fieldZone) => ({
       id: fieldZone ?? "mother",
@@ -260,14 +262,14 @@ export function findTaskGetMock(body: TaskGetRequest) {
 
     return (
       mock.request.id === body.id &&
-      normalizeProvider(mock.request.provider) === normalizeProvider(body.provider) &&
+      normalizeProvider(mock.request.provider) ===
+        normalizeProvider(body.provider) &&
       mock.request.date === body.date &&
       mockIndex === requestedIndex &&
       isSameScope(mock.request.field_zone, body.field_zone)
     );
   });
 }
-
 
 export function findTaskGetIndexMock(body: TaskGetRequest) {
   const requestedIndex = body.index ?? "NDVI";
@@ -278,7 +280,8 @@ export function findTaskGetIndexMock(body: TaskGetRequest) {
     return (
       !hasFullTaskDetails(mock.response) &&
       mock.request.id === body.id &&
-      normalizeProvider(mock.request.provider) === normalizeProvider(body.provider) &&
+      normalizeProvider(mock.request.provider) ===
+        normalizeProvider(body.provider) &&
       mock.request.date === body.date &&
       mockIndex === requestedIndex &&
       isSameScope(mock.request.field_zone, body.field_zone)

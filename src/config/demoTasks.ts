@@ -61,7 +61,9 @@ function buildDemoTasksFromApiResponses(): DemoTask[] {
 
 export const demoTasks: DemoTask[] = buildDemoTasksFromApiResponses();
 
-export function getAvailableIndices(payload: TaskGetRequest): VegetationIndex[] {
+export function getAvailableIndices(
+  payload: TaskGetRequest,
+): VegetationIndex[] {
   const indices = getAvailableIndicesFromApiMocks(payload);
 
   return indices.length ? indices : ["NDVI"];
@@ -94,7 +96,6 @@ export function getLatestFullTaskDate(
     getFirstAvailableDate(payload, index)
   );
 }
-
 
 export function isDateAvailable(
   payload: TaskGetRequest,
@@ -133,7 +134,10 @@ export function isScopeAvailable(
 
 export function findDemoTaskByPayload(payload: TaskGetRequest) {
   return demoTasks.find((task) => {
-    return task.payload.id === payload.id && task.payload.provider === payload.provider;
+    return (
+      task.payload.id === payload.id &&
+      task.payload.provider === payload.provider
+    );
   });
 }
 

@@ -22,7 +22,9 @@ export function isIndexOnlyApiResponse(
 ): response is IndexOnlyApiResponse {
   const data = (response as IndexOnlyApiResponse).data;
 
-  return Boolean(data?.bins && data?.tif_file && typeof data?.histogram !== "object");
+  return Boolean(
+    data?.bins && data?.tif_file && typeof data?.histogram !== "object",
+  );
 }
 
 function getDateFromTifFile(tifFile?: string | null) {
@@ -87,5 +89,8 @@ export function normalizeTaskApiResponse(
     };
   }
 
-  return applyIndexOnlyResponseToTask(previousTaskResponse, response as IndexOnlyApiResponse);
+  return applyIndexOnlyResponseToTask(
+    previousTaskResponse,
+    response as IndexOnlyApiResponse,
+  );
 }

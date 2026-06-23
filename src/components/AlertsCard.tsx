@@ -1,9 +1,9 @@
-import type { Alert, FarmingEvent } from '../types/robocare'
+import type { Alert, FarmingEvent } from "../types/robocare";
 
 type AlertsCardProps = {
-  alerts: Alert[]
-  events: FarmingEvent[]
-}
+  alerts: Alert[];
+  events: FarmingEvent[];
+};
 
 export function AlertsCard({ alerts, events }: AlertsCardProps) {
   return (
@@ -21,7 +21,9 @@ export function AlertsCard({ alerts, events }: AlertsCardProps) {
           {alerts.map((alert) => (
             <article className={`list-item ${alert.level}`} key={alert.id}>
               <strong>{alert.title}</strong>
-              <span>{alert.date} · {alert.level}</span>
+              <span>
+                {alert.date} · {alert.level}
+              </span>
             </article>
           ))}
         </div>
@@ -31,11 +33,13 @@ export function AlertsCard({ alerts, events }: AlertsCardProps) {
           {events.map((event) => (
             <article className="list-item" key={event.id}>
               <strong>{event.title}</strong>
-              <span>{event.date} · {event.type}</span>
+              <span>
+                {event.date} · {event.type}
+              </span>
             </article>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

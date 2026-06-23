@@ -61,7 +61,6 @@ COG is still recommended for performance, but this demo can read the uploaded Ge
 - The previous raster remains visible while the new TileJSON/tiles are loading.
 - Histogram range changes show a loading overlay while TiTiler prepares the updated colored raster tiles.
 
-
 ## Chart system
 
 This version uses `src/components/ui/chart.tsx`, the shadcn/ui Chart wrapper on top of Recharts, for the vegetation evolution chart. The interactive histogram stays as the existing custom SVG because it has Robocare-specific draggable min/max handles, inline manual editing, and live TiTiler rescale behavior. Its visual style is kept aligned with the shadcn chart cards.

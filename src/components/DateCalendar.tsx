@@ -129,7 +129,11 @@ export function DateCalendar({
                   : "",
               ].join(" ")}
               onClick={() => onChange(dateKey)}
-              title={isAvailable ? "Available raster date" : "No raster for this date"}
+              title={
+                isAvailable
+                  ? "Available raster date"
+                  : "No raster for this date"
+              }
             >
               {date.getDate()}
             </button>

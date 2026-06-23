@@ -64,9 +64,9 @@ Connect selected field, selected date, and selected index to the raster tile URL
 
 ## Final ranking
 
-| Rank | Solution | Decision |
-|---:|---|---|
-| 1 | MSW + TiTiler + COG | Best final choice |
-| 2 | MSW + static small `.tif` in `public/mocks` | Temporary fallback |
-| 3 | MSW + pre-generated PNG tiles | Demo-only |
-| 4 | JSON-only raster mocks | Not enough |
+| Rank | Solution                                    | Decision           |
+| ---: | ------------------------------------------- | ------------------ |
+|    1 | MSW + TiTiler + COG                         | Best final choice  |
+|    2 | MSW + static small `.tif` in `public/mocks` | Temporary fallback |
+|    3 | MSW + pre-generated PNG tiles               | Demo-only          |
+|    4 | JSON-only raster mocks                      | Not enough         |

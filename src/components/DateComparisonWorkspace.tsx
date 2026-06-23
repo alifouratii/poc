@@ -127,7 +127,9 @@ function ComparisonSidePanel({
               <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-600">
                 /api/task/get/index/
               </p>
-              <CardTitle className="mt-1 text-xl">{getSideTitle(side)}</CardTitle>
+              <CardTitle className="mt-1 text-xl">
+                {getSideTitle(side)}
+              </CardTitle>
             </div>
 
             <div className="flex flex-wrap gap-2">
@@ -149,14 +151,18 @@ function ComparisonSidePanel({
             </div>
 
             <div className="rounded-2xl border bg-slate-50 p-3">
-              <span className="font-black uppercase text-slate-400">Min / Max</span>
+              <span className="font-black uppercase text-slate-400">
+                Min / Max
+              </span>
               <strong className="mt-1 block text-sm text-slate-800">
                 {histogram.min.toFixed(4)} → {histogram.max.toFixed(4)}
               </strong>
             </div>
 
             <div className="rounded-2xl border bg-slate-50 p-3">
-              <span className="font-black uppercase text-slate-400">Bornes</span>
+              <span className="font-black uppercase text-slate-400">
+                Bornes
+              </span>
               <strong className="mt-1 block text-sm text-slate-800">
                 {activeRange
                   ? `${activeRange[0].toFixed(4)} → ${activeRange[1].toFixed(4)}`
@@ -368,7 +374,9 @@ export function DateComparisonWorkspace({
 
   const leftDate = datePair?.previousDate ?? "—";
   const rightDate = datePair?.latestDate ?? "—";
-  const scopeLabel = payload.field_zone ? `Zone ${payload.field_zone.slice(0, 8)}` : "Mother field";
+  const scopeLabel = payload.field_zone
+    ? `Zone ${payload.field_zone.slice(0, 8)}`
+    : "Mother field";
 
   if (!baseResponse || !datePair) {
     return (
