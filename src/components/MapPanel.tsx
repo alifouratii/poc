@@ -40,7 +40,6 @@ type TileJsonResponse = {
 };
 
 type RasterStatus = "idle" | "loading" | "ready" | "error";
-
 const satelliteStyle: StyleSpecification = {
   version: 8,
   sources: {
