@@ -39,7 +39,7 @@ export function ChartContainer({
   ...props
 }: ChartContainerProps) {
   const uniqueId = React.useId();
-  const chartId = `chart-${id || uniqueId.replaceAll(":", "")}`;
+  const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`;
 
   return (
     <ChartContext.Provider value={{ config }}>
